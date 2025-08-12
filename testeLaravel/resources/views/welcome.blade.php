@@ -110,8 +110,12 @@
         /* formulário adicionar */
         .form-add {
             margin-bottom: 20px;
+            max-width: auto;
+            margin-left: 40px;
+            margin-right: 40px;
+            align-items: center;
             border: 1px solid #ccccccff;
-            padding: 15px;
+            padding: 40px;
             background: #f8f8f8b3;
             border-radius: 5px;
             
@@ -128,54 +132,53 @@
             font-size: 1rem;
         }
 
-        #editModal {
-            display: none; /* escondido por padrão */
-            position: fixed;
-            z-index: 1050;
-            top: 0;
-            left: 0;
-            width: 100vw; /* ocupa a tela inteira */
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
-
-            justify-content: center;
-            align-items: center;
-        }
-
-        #editModal.show {
-            display: flex; /* exibido quando tiver a classe 'show' */
-        }
-
-        #editModal .modal-content {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            max-width: 400px;
-            width: 90vw;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
         /* botões cursor */
         button {
             cursor: pointer;
         }
 
         .btn-success {
-            background-color: #ff0000ff;
+            background-color: #ff0000ff; /* vermelho com opacidade total */
             border: none;
             font-weight: bold;
-            transition: 0.3s;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            cursor: pointer;
         }
+
+        .btn-success:hover {
+            background-color: #ca0000ff; /* vermelho mais escuro */
+        }
+
+        
+        .btn-danger {
+            background-color: #780000ff; /* vermelho com opacidade total */
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-danger:hover {
+            background-color: #ca0000ff; 
+        }
+
+                .btn-primary {
+            background-color: #001c78ff; 
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0029b1ff; 
+        }
+
+
+
 
 
         /* responsividade */
@@ -191,8 +194,7 @@
             }
         }
     </style>
-</head>
-<body>
+</head><body>
     <h1 class="mb-4">Filmes assistidos</h1>
 
     {{-- Mensagens --}}
