@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="camera.png" type="image/x-icon"> 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Bootstrap ícones -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <title>Lista de Filmes</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap'); 
+
         body {
-            background-color: #860000ff;
-            font-family: Arial, sans-serif;
+            background-color: #860000ff; /* vermelho vinho */
+            font-family: 'Arial', serif;
             margin: 16px;
         }
 
+
         h1 {
+                        font-family: 'Cormorant Garamond', serif;
             text-align: center;
             font-size: 60px;
             font-weight: bold;
@@ -138,7 +143,7 @@
         }
 
         .btn-success {
-            background-color: #ff0000ff; /* vermelho com opacidade total */
+            background-color: #780000ff; /* vermelho com opacidade total */
             border: none;
             font-weight: bold;
             text-transform: uppercase;
@@ -177,7 +182,42 @@
             background-color: #0029b1ff; 
         }
 
+        #editModal {
+            display: none; /* escondido por padrão */
+            position: fixed;
+            z-index: 1050;
+            top: 0;
+            left: 0;
+            width: 100vw; /* ocupa a tela inteira */
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
 
+            justify-content: center;
+            align-items: center;
+        }
+
+        #editModal.show {
+            display: flex; /* exibido quando tiver a classe 'show' */
+        }
+
+        #editModal .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 400px;
+            width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
 
 
 
@@ -227,39 +267,39 @@
     </form>
 
     {{-- Lista de filmes --}}
-    <div class="lista-filmes">
-        @foreach($filmes as $f)
-            <div class="filme">
-                <img
-                    src="{{ $f->imagem ? asset('storage/' . $f->imagem) : 'https://via.placeholder.com/120x180?text=Sem+Imagem' }}"
-                    alt="{{ $f->titulo }}"
-                />
-                <div class="detalhes">
-                    <h2>{{ $f->titulo }}</h2>
-                    <p>{{ $f->descricao }}</p>
+<div class="lista-filmes">
+    @foreach($filmes as $f)
+        <div class="filme">
+            <img
+                src="{{ $f->imagem ? asset('storage/' . $f->imagem) : 'https://via.placeholder.com/120x180?text=Sem+Imagem' }}"
+                alt="{{ $f->titulo }}"
+            />
+            <div class="detalhes">
+                <h2>{{ $f->titulo }}</h2>
+                <p>{{ $f->descricao }}</p>
 
+                <button
+                    onclick="abrirModal({{ $f->id }}, '{{ addslashes($f->titulo) }}', '{{ addslashes($f->descricao) }}')"
+                    class="btn btn-primary btn-sm"
+                >
+                    Editar
+                </button>
+
+                <form action="{{ route('filmes.destroy', $f) }}" method="POST" style="display:inline">
+                    @csrf
+                    @method('DELETE')
                     <button
-                        onclick="abrirModal({{ $f->id }}, '{{ addslashes($f->titulo) }}', '{{ addslashes($f->descricao) }}')"
-                        class="btn btn-primary btn-sm"
+                        type="submit"
+                        onclick="return confirm('Tem certeza que deseja excluir?')"
+                        class="btn btn-danger btn-sm"
                     >
-                        Editar
+                        Excluir
                     </button>
-
-                    <form action="{{ route('filmes.destroy', $f) }}" method="POST" style="display:inline">
-                        @csrf
-                        @method('DELETE')
-                        <button
-                            type="submit"
-                            onclick="return confirm('Tem certeza que deseja excluir?')"
-                            class="btn btn-danger btn-sm"
-                        >
-                            Excluir
-                        </button>
-                    </form>
-                </div>
+                </form>
             </div>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
+</div>
 
     {{-- Modal de edição --}}
     <div id="editModal" class="modal">
@@ -279,7 +319,7 @@
                 <label for="editImagem">Imagem:</label>
                 <input type="file" name="imagem" id="editImagem" accept="image/*" />
 
-                <button type="submit" class="btn btn-success btn-sm">Salvar Alterações</button>
+                <button type="submit" class="btn btn-primary btn-sm">Salvar Alterações</button>
             </form>
         </div>
     </div>
