@@ -68,4 +68,7 @@ O site criado com ajuda do laravel, usando html, php, javascript, mysql e css, a
 
 <img width="1917" height="872" alt="Captura de tela 2025-08-25 082439" src="https://github.com/user-attachments/assets/3c212dc7-b419-46a1-a313-f583130c622e" />
 
+### 7 - graças ao bootstrap, o visual ficou responsivo
+
+<img width="778" height="413" alt="image" src="https://github.com/user-attachments/assets/4713d471-62b1-4cf0-9add-d99efa4c9d81" />
 
